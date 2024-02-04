@@ -73,6 +73,9 @@ const app = Vue.createApp({
           .then((res) => {
             this.getCarts();
             this.status.addCartLoading = "";
+          })
+          .catch((err) => {
+            alert(err.response.data.message);
           });
       } else {
         this.status.modalAddCartLoading = product_id;
@@ -84,13 +87,21 @@ const app = Vue.createApp({
             this.getCarts();
             this.status.modalAddCartLoading = "";
             this.$refs.userProductModal.closeModal();
+          })
+          .catch((err) => {
+            alert(err.response.data.message);
           });
       }
     },
     getCarts() {
-      axios.get(`${apiUrl}/api/${apiPath}/cart`).then((res) => {
-        this.carts = res.data.data;
-      });
+      axios
+        .get(`${apiUrl}/api/${apiPath}/cart`)
+        .then((res) => {
+          this.carts = res.data.data;
+        })
+        .catch((err) => {
+          alert(err.response.data.message);
+        });
     },
     changeCartQty(item, qty = 1) {
       const order = {
@@ -105,19 +116,32 @@ const app = Vue.createApp({
         .then((res) => {
           this.getCarts();
           this.status.cartQtyLoading = "";
+        })
+        .catch((err) => {
+          alert(err.response.data.message);
         });
     },
     removeCartItem(id) {
       this.status.cartQtyLoading = id;
-      axios.delete(`${apiUrl}/api/${apiPath}/cart/${id}`).then((res) => {
-        this.getCarts();
-        this.status.cartQtyLoading = "";
-      });
+      axios
+        .delete(`${apiUrl}/api/${apiPath}/cart/${id}`)
+        .then((res) => {
+          this.getCarts();
+          this.status.cartQtyLoading = "";
+        })
+        .catch((err) => {
+          alert(err.response.data.message);
+        });
     },
     removeAllCarts() {
-      axios.delete(`${apiUrl}/api/${apiPath}/carts`).then((res) => {
-        this.getCarts();
-      });
+      axios
+        .delete(`${apiUrl}/api/${apiPath}/carts`)
+        .then((res) => {
+          this.getCarts();
+        })
+        .catch((err) => {
+          alert(err.response.data.message);
+        });
     },
     createOrder() {
       axios
