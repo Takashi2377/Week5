@@ -135,8 +135,12 @@ const app = Vue.createApp({
     },
   },
   mounted() {
+    const loader = this.$loading.show();
     this.getProducts();
     this.getCarts();
+    setTimeout(() => {
+      loader.hide();
+    }, 1000);
   },
 });
 
@@ -144,5 +148,6 @@ app.component("VForm", VeeValidate.Form);
 app.component("VField", VeeValidate.Field);
 app.component("ErrorMessage", VeeValidate.ErrorMessage);
 app.component("userProductModal", userProductModal);
+app.use(VueLoading.LoadingPlugin);
 
 app.mount("#app");
