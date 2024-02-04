@@ -144,6 +144,7 @@ const app = Vue.createApp({
         });
     },
     createOrder() {
+      const loader = this.$loading.show();
       axios
         .post(`${apiUrl}/api/${apiPath}/order`, {
           data: this.form,
@@ -152,9 +153,11 @@ const app = Vue.createApp({
           alert(res.data.message);
           this.$refs.form.resetForm();
           this.getCarts();
+          loader.hide();
         })
         .catch((err) => {
           alert(err.response.data.message);
+          loader.hide();
         });
     },
   },
