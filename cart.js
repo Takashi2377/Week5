@@ -126,8 +126,8 @@ const app = Vue.createApp({
         })
         .then((res) => {
           alert(res.data.message);
-          this.$refs.form.reset();
-          this.getCart();
+          this.$refs.form.resetForm();
+          this.getCarts();
         })
         .catch((err) => {
           alert(err.response.data.message);
